@@ -86,6 +86,24 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
+// Servidor HTTP simple para health checks (UptimeRobot)
+const http = require('http');
+const PORT = process.env.PORT || 3000;
+
+const server = http.createServer((req, res) => {
+    if (req.url === '/health' || req.url === '/') {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Bot OK - Running');
+    } else {
+        res.writeHead(404);
+        res.end('Not Found');
+    }
+});
+
+server.listen(PORT, () => {
+    console.log(`🌐 Health check server listening on port ${PORT}`);
+});
+
 // Usar variables de entorno si existen, sino usar config.json
 const token = process.env.TOKEN || config.token;
 client.login(token);
