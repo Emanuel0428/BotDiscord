@@ -20,6 +20,7 @@ git commit -m "Initial commit - BrainrotBot"
 ```
 
 ### 2. **Crear repositorio en GitHub:**
+
 - Ve a [github.com](https://github.com) y crea una cuenta
 - Crea un nuevo repositorio (público o privado)
 - Sigue las instrucciones para subir tu código
@@ -35,6 +36,7 @@ git push -u origin main
 ## 🌐 **OPCIÓN 1: Railway.app** ⭐ (Recomendado - Más Fácil)
 
 ### **Ventajas:**
+
 - ✅ $5 USD de créditos gratis al mes
 - ✅ Deploy automático desde GitHub
 - ✅ No se duerme
@@ -43,12 +45,10 @@ git push -u origin main
 ### **Pasos:**
 
 1. **Ve a [railway.app](https://railway.app)** y crea una cuenta con GitHub
-
 2. **Click en "New Project" → "Deploy from GitHub repo"**
-
 3. **Selecciona tu repositorio de BrainrotBot**
-
 4. **Configurar variables de entorno:**
+
    - Click en tu proyecto → Variables
    - Añade estas variables:
      ```
@@ -56,10 +56,10 @@ git push -u origin main
      BOT_ID=tu_bot_id_aqui
      SERVER=BrainrotServer
      ```
-
 5. **¡Listo!** Railway detectará automáticamente que es un proyecto Node.js y lo desplegará
 
 ### **Monitoreo:**
+
 - Ve a "Deployments" para ver logs en tiempo real
 - El bot se reiniciará automáticamente si hay errores
 
@@ -68,6 +68,7 @@ git push -u origin main
 ## 🎨 **OPCIÓN 2: Render.com**
 
 ### **Ventajas:**
+
 - ✅ 750 horas gratis al mes
 - ✅ Muy confiable
 - ⚠️ Se duerme tras 15 min de inactividad (despierta rápido)
@@ -75,19 +76,17 @@ git push -u origin main
 ### **Pasos:**
 
 1. **Ve a [render.com](https://render.com)** y crea una cuenta
-
 2. **Click en "New +" → "Web Service"**
-
 3. **Conecta tu repositorio de GitHub**
-
 4. **Configuración:**
+
    - **Name:** BrainrotBot
    - **Environment:** Node
    - **Build Command:** `npm install`
    - **Start Command:** `node src/index.js`
    - **Plan:** Free
-
 5. **Variables de entorno:**
+
    - Ve a "Environment"
    - Añade:
      ```
@@ -95,10 +94,10 @@ git push -u origin main
      BOT_ID=tu_bot_id_aqui
      SERVER=BrainrotServer
      ```
-
 6. **Deploy!**
 
 ### **Mantenerlo despierto:**
+
 Para evitar que se duerma, puedes usar [UptimeRobot](https://uptimerobot.com) para hacer ping cada 5 minutos (gratis).
 
 ---
@@ -106,24 +105,25 @@ Para evitar que se duerma, puedes usar [UptimeRobot](https://uptimerobot.com) pa
 ## ☁️ **OPCIÓN 3: Oracle Cloud (Always Free)** 💎
 
 ### **Ventajas:**
+
 - ✅ 100% gratis PARA SIEMPRE
 - ✅ Nunca se duerme
 - ✅ Recursos generosos
 - ⚠️ Más técnico de configurar
 
 ### **Requisitos:**
+
 - Tarjeta de crédito/débito (no se cobra, solo verificación)
 - Conocimientos básicos de Linux
 
 ### **Pasos:**
 
 1. **Crear cuenta en [oracle.com/cloud/free](https://www.oracle.com/cloud/free/)**
-
 2. **Crear una instancia VM:**
+
    - Compute → Instances → Create Instance
    - Imagen: Ubuntu 22.04
    - Shape: VM.Standard.E2.1.Micro (Always Free)
-
 3. **Conectar por SSH y configurar:**
 
 ```bash
@@ -141,8 +141,8 @@ sudo apt install -y ffmpeg
 sudo apt install -y git
 
 # Clonar tu repositorio
-git clone https://github.com/TU_USUARIO/BrainrotBot.git
-cd BrainrotBot
+git clone https://github.com/Emanuel0428/BotDiscord.git
+cd BotDiscord
 
 # Instalar dependencias
 npm install
@@ -152,6 +152,7 @@ nano .env
 ```
 
 4. **Configurar .env:**
+
 ```
 TOKEN=tu_token_aqui
 BOT_ID=tu_bot_id_aqui
@@ -176,6 +177,7 @@ pm2 logs brainrotbot
 ```
 
 ### **Comandos útiles de PM2:**
+
 ```bash
 pm2 restart brainrotbot  # Reiniciar
 pm2 stop brainrotbot     # Detener
@@ -188,6 +190,7 @@ pm2 monit                # Monitor en tiempo real
 ## 🔄 **OPCIÓN 4: Replit**
 
 ### **Ventajas:**
+
 - ✅ Súper fácil, interfaz web
 - ✅ No necesitas GitHub
 - ⚠️ Se duerme si no hay actividad
@@ -196,55 +199,56 @@ pm2 monit                # Monitor en tiempo real
 ### **Pasos:**
 
 1. **Ve a [replit.com](https://replit.com)** y crea una cuenta
-
 2. **Create → Node.js**
-
 3. **Sube tus archivos** (arrastra la carpeta completa)
-
 4. **Crea archivo `.env`** en Secrets (candado en el panel izquierdo):
+
    ```
    TOKEN=tu_token
    BOT_ID=tu_bot_id
    SERVER=BrainrotServer
    ```
-
 5. **En el archivo principal, cambia a:**
+
    ```javascript
    // En la primera línea de index.js
    require('dotenv').config()
    ```
-
 6. **Click en "Run"**
 
 ### **Mantenerlo despierto:**
+
 Usa [UptimeRobot](https://uptimerobot.com) para hacer ping cada 5 minutos.
 
 ---
 
 ## 📊 **Comparación rápida:**
 
-| Plataforma | Costo | Uptime | Facilidad | Recursos |
-|------------|-------|--------|-----------|----------|
-| **Railway** ⭐ | $5/mes gratis | 100% | ⭐⭐⭐⭐⭐ | Buenos |
-| **Render** | 750h gratis | 95% | ⭐⭐⭐⭐ | Buenos |
-| **Oracle** 💎 | 100% gratis | 100% | ⭐⭐⭐ | Excelentes |
-| **Replit** | Gratis | 80% | ⭐⭐⭐⭐⭐ | Limitados |
+| Plataforma           | Costo         | Uptime | Facilidad  | Recursos   |
+| -------------------- | ------------- | ------ | ---------- | ---------- |
+| **Railway** ⭐ | $5/mes gratis | 100%   | ⭐⭐⭐⭐⭐ | Buenos     |
+| **Render**     | 750h gratis   | 95%    | ⭐⭐⭐⭐   | Buenos     |
+| **Oracle** 💎  | 100% gratis   | 100%   | ⭐⭐⭐     | Excelentes |
+| **Replit**     | Gratis        | 80%    | ⭐⭐⭐⭐⭐ | Limitados  |
 
 ---
 
 ## 🔧 **Troubleshooting:**
 
 ### **Bot no inicia:**
+
 - Verifica que las variables de entorno estén correctas
 - Revisa los logs de la plataforma
 - Asegúrate de que `npm install` se ejecutó correctamente
 
 ### **Bot se desconecta:**
+
 - Verifica que tienes suficientes créditos/horas
 - Revisa los logs para errores
 - Asegúrate de que el token sea válido
 
 ### **Comandos no funcionan:**
+
 - Ejecuta `npm run register` una sola vez después de deployar
 - Espera 1-2 minutos para que Discord los registre
 - Verifica que el bot tenga permisos en el servidor
