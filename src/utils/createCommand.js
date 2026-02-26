@@ -1,7 +1,15 @@
 require('dotenv').config();
 const fs = require("fs");
 const { REST, Routes } = require("discord.js");
-const config = require("../../config.json");
+
+// Cargar config.json si existe, sino usar objeto vacío
+let config = {};
+try {
+    config = require("../../config.json");
+} catch (error) {
+    console.log('ℹ️ config.json no encontrado, usando variables de entorno');
+}
+
 const commands = [];
 const slashCommandsFiles = fs
   .readdirSync("./src/slashCommands")

@@ -1,8 +1,15 @@
 require('dotenv').config();
 const { Client, Collection, GatewayIntentBits, MessageFlags } = require('discord.js');
-const config = require('../config.json');
 const fs = require('fs');
 const path = require('path');
+
+// Cargar config.json si existe, sino usar objeto vacío
+let config = {};
+try {
+    config = require('../config.json');
+} catch (error) {
+    console.log('ℹ️ config.json no encontrado, usando variables de entorno');
+}
 
 const client = new Client({ 
     intents: [
@@ -44,7 +51,7 @@ for (const file of slashCommandFiles) {
 
 client.on('clientReady', () => {
     console.log(`✅ Bot conectado como ${client.user.tag}`);
-    console.log(`🎮 Servidor: ${config.server}`);
+    console.log(`🎮 Servidor: ${process.env.SERVER || config.server || 'BrainrotServer'}`);
     console.log(`🧠 Modo: BRAINROT ACTIVADO 💀`);
     
     // Establecer estado del bot
