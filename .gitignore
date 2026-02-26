@@ -1,0 +1,7 @@
+# Archivos de datos del bot
+data/
+node_modules/
+.env
+*.log
+.DS_Store
+config.json
