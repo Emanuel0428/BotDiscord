@@ -95,8 +95,15 @@ Luego edita `config.json`:
 
 URL de invitación (reemplaza CLIENT_ID con tu Bot ID):
 ```
-https://discord.com/api/oauth2/authorize?client_id=CLIENT_ID&permissions=8&scope=bot%20applications.commands
+https://discord.com/api/oauth2/authorize?client_id=CLIENT_ID&permissions=8866461766385655&scope=bot%20applications.commands
 ```
+
+**IMPORTANTE:** Esta URL incluye TODOS los permisos necesarios (8866461766385655). El bot necesita estos permisos para:
+- Crear y gestionar canales/categorías (`/setup-server`)
+- Gestionar roles y miembros
+- Enviar mensajes y embeds
+- Añadir reacciones (sorteos)
+- Conectarse y hablar en voz (`/sound`)
 
 ### Paso 5: Registrar los comandos slash
 ```bash

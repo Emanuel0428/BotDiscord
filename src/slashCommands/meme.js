@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('meme')
-        .setDescription('😂 Envía un meme aleatorio de Brainrot'),
+        .setDescription('😂 Send a random Brainrot meme'),
     
     async execute(interaction) {
         const memes = [
@@ -56,7 +56,7 @@ module.exports = {
             .setTitle(`😂 ${randomMeme.title}`)
             .setDescription(randomMeme.caption)
             .setImage(randomMeme.image)
-            .setFooter({ text: 'BrainrotBot 🧠 | /meme para más' })
+            .setFooter({ text: 'BrainrotBot 🧠 | /meme for more' })
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed] });

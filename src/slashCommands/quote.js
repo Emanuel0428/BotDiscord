@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('quote')
-        .setDescription('💬 Frases legendarias de Brainrot'),
+        .setDescription('💬 Legendary Brainrot quotes'),
     
     async execute(interaction) {
         const quotes = [
@@ -28,10 +28,10 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setColor('#f39c12')
-            .setTitle('💬 Frase Brainrot del Día')
+            .setTitle('💬 Brainrot Quote of the Day')
             .setDescription(`*"${randomQuote.text}"*`)
-            .addFields({ name: '📝 Autor', value: randomQuote.author })
-            .setFooter({ text: 'BrainrotBot 🧠 | Sabiduría suprema' })
+            .addFields({ name: '📝 Author', value: randomQuote.author })
+            .setFooter({ text: 'BrainrotBot 🧠 | Supreme wisdom' })
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed] });

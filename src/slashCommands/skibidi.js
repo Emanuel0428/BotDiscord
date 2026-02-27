@@ -3,55 +3,55 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('skibidi')
-        .setDescription('🚽 Skibidi dop dop yes yes - Referencias al fenómeno'),
+        .setDescription('🚽 Skibidi dop dop yes yes - References to the phenomenon'),
     
     async execute(interaction) {
         const skibidiRefs = [
             {
                 title: 'Skibidi Toilet Original',
-                description: 'Todo empezó con una cabeza en un WC',
+                description: 'It all started with a head in a toilet',
                 rating: '⭐⭐⭐⭐⭐',
                 vibes: '🚽💀'
             },
             {
                 title: 'Cameraman Army',
-                description: 'Los héroes que luchan contra los toilets',
+                description: 'The heroes who fight against the toilets',
                 rating: '⭐⭐⭐⭐',
                 vibes: '📹🦾'
             },
             {
                 title: 'Speaker Man',
-                description: 'Con sus bocinas de poder supremo',
+                description: 'With his speakers of supreme power',
                 rating: '⭐⭐⭐⭐⭐',
                 vibes: '🔊💪'
             },
             {
                 title: 'TV Man',
-                description: 'El más poderoso de todos',
+                description: 'The most powerful of all',
                 rating: '⭐⭐⭐⭐⭐',
                 vibes: '📺✨'
             },
             {
                 title: 'G-Man Toilet',
-                description: 'El villano principal, todo un boss',
+                description: 'The main villain, a real boss',
                 rating: '⭐⭐⭐⭐⭐',
                 vibes: '🚽👔'
             },
             {
                 title: 'Titan Cameraman',
-                description: 'El titan de los cameramen',
+                description: 'The titan of cameramen',
                 rating: '⭐⭐⭐⭐⭐',
                 vibes: '📹🗿'
             },
             {
                 title: 'Skibidi Dance',
-                description: 'El baile que empezó todo esto',
+                description: 'The dance that started it all',
                 rating: '⭐⭐⭐⭐',
                 vibes: '💃🚽'
             },
             {
                 title: 'Multi-Head Toilet',
-                description: 'Cuando un WC no es suficiente',
+                description: 'When one toilet is not enough',
                 rating: '⭐⭐⭐⭐',
                 vibes: '🚽🚽🚽'
             }

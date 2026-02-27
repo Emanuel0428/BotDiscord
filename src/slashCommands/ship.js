@@ -3,21 +3,21 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ship')
-        .setDescription('💕 Calcula la compatibilidad entre dos personas')
+        .setDescription('💕 Calculate compatibility between two people')
         .addUserOption(option =>
             option.setName('persona1')
-                .setDescription('Primera persona')
+                .setDescription('First person')
                 .setRequired(true))
         .addUserOption(option =>
             option.setName('persona2')
-                .setDescription('Segunda persona')
+                .setDescription('Second person')
                 .setRequired(true)),
     
     async execute(interaction) {
         const user1 = interaction.options.getUser('persona1');
         const user2 = interaction.options.getUser('persona2');
 
-        // Calcular compatibilidad "aleatoria" pero consistente
+        // Calculate "random" but consistent compatibility
         const seed = [user1.id, user2.id].sort().join('');
         const hash = seed.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
         const compatibility = hash % 101;
@@ -27,34 +27,34 @@ module.exports = {
         if (compatibility >= 90) {
             status = 'PERFECT MATCH';
             emoji = '💖';
-            message = 'Match perfecto! Esto es peak fiction fr fr 🔥';
+            message = 'Perfect match! This is peak fiction fr fr 🔥';
         } else if (compatibility >= 75) {
             status = 'BUSSIN';
             emoji = '❤️';
-            message = 'Compatible! El rizz está presente 😎';
+            message = 'Compatible! The rizz is present 😎';
         } else if (compatibility >= 60) {
             status = 'GOOD VIBES';
             emoji = '💕';
-            message = 'Está bonito, tienen chemistry 💫';
+            message = 'Looking good, they have chemistry 💫';
         } else if (compatibility >= 45) {
             status = 'MID';
             emoji = '💛';
-            message = 'Está bien, pero nada del otro mundo 😐';
+            message = 'It\'s fine, but nothing special 😐';
         } else if (compatibility >= 30) {
             status = 'NOT BUSSIN';
             emoji = '💔';
-            message = 'Mmm... mejor como amigos 🤷';
+            message = 'Mmm... better as friends 🤷';
         } else if (compatibility >= 15) {
             status = 'L MATCH';
             emoji = '😬';
-            message = 'Houston, tenemos un problema 🚫';
+            message = 'Houston, we have a problem 🚫';
         } else {
             status = 'TOXIC';
             emoji = '💀';
-            message = 'Run. Solo huye. Ohio level chemistry 🌽';
+            message = 'Run. Just run. Ohio level chemistry 🌽';
         }
 
-        // Crear barra de progreso visual
+        // Create visual progress bar
         const filled = Math.floor(compatibility / 10);
         const empty = 10 - filled;
         const progressBar = '█'.repeat(filled) + '░'.repeat(empty);
@@ -64,11 +64,11 @@ module.exports = {
             .setTitle(`${emoji} SHIP CALCULATOR ${emoji}`)
             .setDescription(`**${user1.username}** 💕 **${user2.username}**`)
             .addFields(
-                { name: '💝 Compatibilidad', value: `${progressBar} ${compatibility}%`, inline: false },
+                { name: '💝 Compatibility', value: `${progressBar} ${compatibility}%`, inline: false },
                 { name: '📊 Status', value: status, inline: true },
-                { name: '💭 Veredicto', value: message, inline: false }
+                { name: '💭 Verdict', value: message, inline: false }
             )
-            .setFooter({ text: 'BrainrotBot 🧠 | Ship responsablemente' })
+            .setFooter({ text: 'BrainrotBot 🧠 | Ship responsibly' })
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed] });

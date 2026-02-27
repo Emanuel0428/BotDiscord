@@ -3,51 +3,51 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('8ball')
-        .setDescription('🔮 Pregúntale algo a la bola mágica brainrot')
+        .setDescription('🔮 Ask the brainrot magic 8ball something')
         .addStringOption(option =>
-            option.setName('pregunta')
-                .setDescription('Tu pregunta')
+            option.setName('question')
+                .setDescription('Your question')
                 .setRequired(true)),
     
     async execute(interaction) {
-        const question = interaction.options.getString('pregunta');
+        const question = interaction.options.getString('question');
 
         const responses = [
-            // Respuestas positivas
-            'Sí, 100% seguro on god fr fr 💯',
-            'No hay duda, eso es bussin 🔥',
-            'Las señales apuntan a un rotundo sí 🎯',
-            'Claro que sí mi pana, skibidi approved ✅',
-            'Yo creo que sí, sigma energy detected 💪',
-            'Por supuesto, W take hermano 🏆',
+            // Positive responses
+            'Yes, 100% sure on god fr fr 💯',
+            'No doubt, that\'s bussin 🔥',
+            'The signs point to a resounding yes 🎯',
+            'Of course yes my friend, skibidi approved ✅',
+            'I think so, sigma energy detected 💪',
+            'Of course, W take bro 🏆',
             'Yes yes yes, skibidi dop dop 🚽',
-            'Obvio que sí, based y redpilled 📕',
-            // Respuestas negativas
-            'Nah, eso es un L take 👎',
-            'No lo veo claro, mid energy 😐',
-            'Mejor no, eso no es bussin 🚫',
-            'Nop, ese cap es muy fuerte 🧢',
-            'No creo, solo en Ohio pasaría eso 🌽',
-            'Negativo soldado, beta move 📉',
-            'Eso es un no, goofy ahh question 🤪',
-            'Mejor olvídalo, NPC behavior 💀',
-            // Respuestas neutrales
-            'Pregunta de nuevo más tarde, estoy en mi grind 💼',
-            'No estoy seguro, consulta con el rizz council 🤔',
-            'La respuesta no está clara, muy sigma para decidir 🌫️',
-            'Concentrate y pregunta de nuevo, skibidi confusion 🔄',
-            'Es un 50/50 bro, sácalo en Fortnite 🎲',
-            'Depende de tu mindset, sigma o beta? 🤷'
+            'Obviously yes, based and redpilled 📕',
+            // Negative responses
+            'Nah, that\'s an L take 👎',
+            'I don\'t see it clearly, mid energy 😐',
+            'Better not, that\'s not bussin 🚫',
+            'Nope, that cap is too strong 🧢',
+            'I don\'t think so, only in Ohio would that happen 🌽',
+            'Negative soldier, beta move 📉',
+            'That\'s a no, goofy ahh question 🤪',
+            'Better forget it, NPC behavior 💀',
+            // Neutral responses
+            'Ask again later, I\'m on my grind 💼',
+            'I\'m not sure, consult with the rizz council 🤔',
+            'The answer is not clear, too sigma to decide 🌫️',
+            'Concentrate and ask again, skibidi confusion 🔄',
+            'It\'s a 50/50 bro, flip it in Fortnite 🎲',
+            'Depends on your mindset, sigma or beta? 🤷'
         ];
 
         const randomResponse = responses[Math.floor(Math.random() * responses.length)];
 
         const embed = new EmbedBuilder()
             .setColor('#9b59b6')
-            .setTitle('🔮 La Bola Mágica Brainrot Dice...')
+            .setTitle('🔮 The Brainrot Magic 8Ball Says...')
             .addFields(
-                { name: '❓ Tu Pregunta', value: question, inline: false },
-                { name: '💭 Respuesta', value: randomResponse, inline: false }
+                { name: '❓ Your Question', value: question, inline: false },
+                { name: '💭 Answer', value: randomResponse, inline: false }
             )
             .setFooter({ text: 'BrainrotBot 🧠 | 100% accurate (maybe)' })
             .setTimestamp();

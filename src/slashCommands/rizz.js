@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('rizz')
-        .setDescription('😎 Líneas de rizz supremo para conquistar'),
+        .setDescription('😎 Supreme rizz lines to conquer'),
     
     async execute(interaction) {
         const rizzLines = [
@@ -29,9 +29,9 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setColor('#e74c3c')
-            .setTitle('😎 Rizz Line Suprema')
+            .setTitle('😎 Supreme Rizz Line')
             .setDescription(`💬 *${randomRizz}*`)
-            .setFooter({ text: 'BrainrotBot 🧠 | Úsala bajo tu propio riesgo' })
+            .setFooter({ text: 'BrainrotBot 🧠 | Use at your own risk' })
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed] });

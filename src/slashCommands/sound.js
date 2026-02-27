@@ -4,10 +4,10 @@ const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerSta
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('sound')
-        .setDescription('🔊 Reproduce un sonido épico de Brainrot en tu canal de voz')
+        .setDescription('🔊 Play an epic Brainrot sound in your voice channel')
         .addStringOption(option =>
             option.setName('sonido')
-                .setDescription('Elige un sonido específico (opcional)')
+                .setDescription('Choose a specific sound (optional)')
                 .setRequired(false)
                 .addChoices(
                     { name: '🗣️ Rizz', value: 'rizz' },
@@ -21,22 +21,22 @@ module.exports = {
                 )),
     
     async execute(interaction) {
-        // Verificar que el usuario esté en un canal de voz
+        // Verify that the user is in a voice channel
         const voiceChannel = interaction.member.voice.channel;
         if (!voiceChannel) {
             return await interaction.reply({
-                content: '❌ ¡Debes estar en un canal de voz para usar este comando!',
+                content: '❌ You must be in a voice channel to use this command!',
                 flags: MessageFlags.Ephemeral
             });
         }
 
-        // Lista de sonidos con URLs directas de myinstants
+        // List of sounds with direct URLs from myinstants
         const sounds = {
             rizz: {
                 name: 'Rizz Sound Effect',
                 url: 'https://www.myinstants.com/media/sounds/rizz-sound-effect.mp3',
                 emoji: '🗣️',
-                description: 'El sonido supremo del rizz'
+                description: 'The supreme rizz sound'
             },
             skibidi: {
                 name: 'Skibidi Toilet',
@@ -48,7 +48,7 @@ module.exports = {
                 name: 'Sigma Male',
                 url: 'https://www.myinstants.com/media/sounds/sigma-male-grindset.mp3',
                 emoji: '💪',
-                description: 'Sigma grindset activado'
+                description: 'Sigma grindset activated'
             },
             pipe: {
                 name: 'Metal Pipe',
@@ -60,13 +60,13 @@ module.exports = {
                 name: 'Bruh Sound',
                 url: 'https://www.myinstants.com/media/sounds/bruh-sound-effect.mp3',
                 emoji: '💀',
-                description: 'Bruh momento'
+                description: 'Bruh moment'
             },
             boom: {
                 name: 'Vine Boom',
                 url: 'https://www.myinstants.com/media/sounds/vine-boom.mp3',
                 emoji: '🌽',
-                description: 'El boom legendario'
+                description: 'The legendary boom'
             },
             bell: {
                 name: 'Taco Bell',
@@ -78,11 +78,11 @@ module.exports = {
                 name: 'Evil Laugh',
                 url: 'https://www.myinstants.com/media/sounds/evil-laugh.mp3',
                 emoji: '😂',
-                description: 'Risa maléfica'
+                description: 'Evil laugh'
             }
         };
 
-        // Seleccionar sonido (específico o aleatorio)
+        // Select sound (specific or random)
         const selectedChoice = interaction.options.getString('sonido');
         const soundKeys = Object.keys(sounds);
         const soundKey = selectedChoice || soundKeys[Math.floor(Math.random() * soundKeys.length)];
@@ -91,7 +91,7 @@ module.exports = {
         await interaction.deferReply();
 
         try {
-            // Conectar al canal de voz
+            // Connect to voice channel
             const connection = joinVoiceChannel({
                 channelId: voiceChannel.id,
                 guildId: interaction.guildId,
@@ -100,33 +100,33 @@ module.exports = {
                 selfMute: false,
             });
 
-            // Esperar a que la conexión esté lista
+            // Wait for connection to be ready
             await entersState(connection, VoiceConnectionStatus.Ready, 30_000);
 
-            // Crear el recurso de audio
+            // Create audio resource
             const resource = createAudioResource(selectedSound.url);
             const player = createAudioPlayer();
 
-            // Reproducir el audio
+            // Play the audio
             player.play(resource);
             connection.subscribe(player);
 
-            // Responder al usuario
+            // Respond to user
             const embed = new EmbedBuilder()
                 .setColor('#00ff00')
                 .setTitle(`${selectedSound.emoji} Reproduciendo: ${selectedSound.name}`)
                 .setDescription(`**${selectedSound.description}**\n\n🔊 Sonando en: ${voiceChannel.name}`)
-                .setFooter({ text: 'BrainrotBot 🧠 | El bot se desconectará automáticamente' })
+                .setFooter({ text: 'BrainrotBot 🧠 | Bot will disconnect automatically' })
                 .setTimestamp();
 
             await interaction.editReply({ embeds: [embed] });
 
-            // Desconectar cuando termine el audio
+            // Disconnect when audio finishes
             player.on(AudioPlayerStatus.Idle, () => {
                 connection.destroy();
             });
 
-            // Timeout de seguridad (30 segundos)
+            // Safety timeout (30 seconds)
             setTimeout(() => {
                 if (connection.state.status !== VoiceConnectionStatus.Destroyed) {
                     connection.destroy();
@@ -134,9 +134,9 @@ module.exports = {
             }, 30000);
 
         } catch (error) {
-            console.error('Error reproduciendo sonido:', error);
+            console.error('Error playing sound:', error);
             await interaction.editReply({
-                content: '❌ Hubo un error al reproducir el sonido. Asegúrate de que el bot tenga permisos para unirse al canal de voz.',
+                content: '❌ There was an error playing the sound. Make sure the bot has permissions to join the voice channel.',
                 embeds: []
             });
         }

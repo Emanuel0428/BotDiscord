@@ -3,79 +3,79 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('challenge')
-        .setDescription('🎯 Recibe un challenge random de Fortnite Creative'),
+        .setDescription('🎯 Receive a random Fortnite Creative challenge'),
     
     async execute(interaction) {
         const challenges = [
             {
                 name: 'Only Pickaxe',
-                description: 'Completa un mapa usando solo el pico',
+                description: 'Complete a map using only the pickaxe',
                 difficulty: '⭐⭐⭐',
                 reward: 'Sigma respect + 100'
             },
             {
                 name: 'Speedrun Mode',
-                description: 'Completa el mapa en menos de 5 minutos',
+                description: 'Complete the map in less than 5 minutes',
                 difficulty: '⭐⭐⭐⭐',
                 reward: 'W reputation'
             },
             {
                 name: 'No Build Challenge',
-                description: 'Juega sin construir nada',
+                description: 'Play without building anything',
                 difficulty: '⭐⭐',
                 reward: 'Based points'
             },
             {
                 name: 'Backwards Only',
-                description: 'Completa el mapa caminando solo hacia atrás',
+                description: 'Complete the map walking only backwards',
                 difficulty: '⭐⭐⭐⭐⭐',
                 reward: 'Legendary status'
             },
             {
                 name: 'Random Loadout',
-                description: 'Usa solo las primeras armas que encuentres',
+                description: 'Use only the first weapons you find',
                 difficulty: '⭐⭐⭐',
                 reward: 'RNG god title'
             },
             {
                 name: 'Pacifist Run',
-                description: 'Completa sin eliminar a nadie',
+                description: 'Complete without eliminating anyone',
                 difficulty: '⭐⭐⭐⭐',
                 reward: 'Peace keeper badge'
             },
             {
                 name: 'Minimum Resources',
-                description: 'Juega con solo 50 de cada material',
+                description: 'Play with only 50 of each material',
                 difficulty: '⭐⭐⭐',
                 reward: 'Efficiency master'
             },
             {
                 name: 'Random Sensitivity',
-                description: 'Cambia tu sensibilidad a un número aleatorio',
+                description: 'Change your sensitivity to a random number',
                 difficulty: '⭐⭐⭐⭐',
                 reward: 'Chaos energy'
             },
             {
                 name: 'No Sprint',
-                description: 'Completa sin correr',
+                description: 'Complete without sprinting',
                 difficulty: '⭐⭐',
                 reward: 'Patience certified'
             },
             {
                 name: 'Emote After Every Kill',
-                description: 'Emote obligatorio después de cada eliminación',
+                description: 'Mandatory emote after every elimination',
                 difficulty: '⭐⭐⭐',
                 reward: 'BM champion'
             },
             {
                 name: 'Ohio Mode',
-                description: 'Juega con los ojos cerrados por 30 segundos',
+                description: 'Play with your eyes closed for 30 seconds',
                 difficulty: '⭐⭐⭐⭐⭐',
                 reward: 'Ohio survivor'
             },
             {
                 name: 'Skibidi Challenge',
-                description: 'Solo puedes moverte mientras saltas',
+                description: 'You can only move while jumping',
                 difficulty: '⭐⭐⭐⭐',
                 reward: 'Skibidi toilet approved'
             }
@@ -85,15 +85,15 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setColor('#ff6b6b')
-            .setTitle('🎯 CHALLENGE ALEATORIO')
-            .setDescription(`*¿Tienes lo que se necesita?* 💪`)
+            .setTitle('🎯 RANDOM CHALLENGE')
+            .setDescription(`*Do you have what it takes?* 💪`)
             .addFields(
                 { name: '🏆 Challenge', value: randomChallenge.name, inline: false },
-                { name: '📝 Descripción', value: randomChallenge.description, inline: false },
-                { name: '⭐ Dificultad', value: randomChallenge.difficulty, inline: true },
-                { name: '🎁 Recompensa', value: randomChallenge.reward, inline: true }
+                { name: '📝 Description', value: randomChallenge.description, inline: false },
+                { name: '⭐ Difficulty', value: randomChallenge.difficulty, inline: true },
+                { name: '🎁 Reward', value: randomChallenge.reward, inline: true }
             )
-            .setFooter({ text: 'BrainrotBot 🧠 | Complétalo y comparte tu clip!' })
+            .setFooter({ text: 'BrainrotBot 🧠 | Complete it and share your clip!' })
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed] });

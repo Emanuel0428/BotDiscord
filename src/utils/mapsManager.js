@@ -3,7 +3,7 @@ const path = require('path');
 
 const mapsFilePath = path.join(__dirname, '../../data/maps.json');
 
-// Función para leer mapas
+// Function to read maps
 function readMaps() {
     try {
         if (!fs.existsSync(mapsFilePath)) {
@@ -12,12 +12,12 @@ function readMaps() {
         const data = fs.readFileSync(mapsFilePath, 'utf8');
         return JSON.parse(data);
     } catch (error) {
-        console.error('Error leyendo mapas:', error);
+        console.error('Error reading maps:', error);
         return [];
     }
 }
 
-// Función para guardar mapas
+// Function to save maps
 function saveMaps(maps) {
     try {
         const dir = path.dirname(mapsFilePath);
@@ -27,12 +27,12 @@ function saveMaps(maps) {
         fs.writeFileSync(mapsFilePath, JSON.stringify(maps, null, 2));
         return true;
     } catch (error) {
-        console.error('Error guardando mapas:', error);
+        console.error('Error saving maps:', error);
         return false;
     }
 }
 
-// Función para añadir un mapa
+// Function to add a map
 function addMap(mapData) {
     const maps = readMaps();
     const newMap = {
@@ -50,14 +50,14 @@ function addMap(mapData) {
     return newMap;
 }
 
-// Función para obtener un mapa aleatorio
+// Function to get a random map
 function getRandomMap() {
     const maps = readMaps();
     if (maps.length === 0) return null;
     return maps[Math.floor(Math.random() * maps.length)];
 }
 
-// Función para votar por un mapa
+// Function to vote for a map
 function voteMap(mapId) {
     const maps = readMaps();
     const map = maps.find(m => m.id === mapId);
@@ -69,7 +69,7 @@ function voteMap(mapId) {
     return null;
 }
 
-// Función para obtener top mapas
+// Function to get top maps
 function getTopMaps(limit = 10) {
     const maps = readMaps();
     return maps.sort((a, b) => b.votes - a.votes).slice(0, limit);

@@ -3,25 +3,25 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ohio')
-        .setDescription('🌽 Only in Ohio... solo aquí pasan estas cosas'),
+        .setDescription('🌽 Only in Ohio... where the craziest things happen'),
     
     async execute(interaction) {
         const ohioEvents = [
-            'Un Skibidi Toilet apareció en el supermercado 🚽',
-            'Vi a Grimace persiguiendo gente con su shake 🟣💀',
-            'Los semáforos empezaron a bailar música de phonk 🚦',
-            'Mi vecino se transformó en un sigma male de la nada 💪',
-            'Las vacas están haciendo TikToks en el campo 🐄📱',
-            'El sol se puso cuadrado como en Minecraft ☀️',
-            'Los McDonald\'s están volando por el cielo 🍔✈️',
-            'Vi un tornado hecho de Pizza por el Fanum Tax 🌪️🍕',
-            'Los memes cobraron vida y están caminando por la calle 💀',
-            'Mi auto empezó a reproducir goofy ahh sounds solo 🚗🎵',
-            'El alcalde declaró el brainrot como deporte oficial 🏆',
-            'Las nubes tienen forma de emojis 💀 ☁️',
-            'Los perros están hablando en lenguaje de Zoomer 🐕',
-            'El agua del grifo salió con sabor a Mountain Dew 💚',
-            'Vi un portal a la dimensión del Skibidi en mi patio 🌀'
+            'A Skibidi Toilet appeared at the supermarket 🚽',
+            'I saw Grimace chasing people with his shake 🟣💀',
+            'The traffic lights started dancing to phonk music 🚦',
+            'My neighbor turned into a sigma male out of nowhere 💪',
+            'The cows are making TikToks in the field 🐄📱',
+            'The sun became square like in Minecraft ☀️',
+            'McDonald\'s are flying through the sky 🍔✈️',
+            'I saw a tornado made of Pizza from the Fanum Tax 🌪️🍕',
+            'The memes came to life and are walking down the street 💀',
+            'My car started playing goofy ahh sounds on its own 🚗🎵',
+            'The mayor declared brainrot as an official sport 🏆',
+            'The clouds are shaped like emojis 💀 ☁️',
+            'The dogs are speaking Zoomer language 🐕',
+            'Tap water came out tasting like Mountain Dew 💚',
+            'I saw a portal to the Skibidi dimension in my backyard 🌀'
         ];
 
         const randomEvent = ohioEvents[Math.floor(Math.random() * ohioEvents.length)];
@@ -29,7 +29,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setColor('#FFA500')
             .setTitle('🌽 ONLY IN OHIO')
-            .setDescription(`**${randomEvent}**\n\n*Solo en Ohio pueden pasar estas cosas tan random* 💀`)
+            .setDescription(`**${randomEvent}**\n\n*Only in Ohio can these random things happen* 💀`)
             .setFooter({ text: 'BrainrotBot 🧠 | Based on a true story (maybe)' })
             .setTimestamp();
 
