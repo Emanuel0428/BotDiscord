@@ -4,30 +4,30 @@ const { addMap } = require('../utils/mapsManager');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('submit-map')
-        .setDescription('🗺️ Envía tu código de mapa de Fortnite Creative')
+        .setDescription('🗺️ Submit your Fortnite Creative map code')
         .addStringOption(option =>
-            option.setName('codigo')
-                .setDescription('Código del mapa (formato: 0000-0000-0000)')
+            option.setName('code')
+                .setDescription('Map code (format: 0000-0000-0000)')
                 .setRequired(true))
         .addStringOption(option =>
-            option.setName('nombre')
-                .setDescription('Nombre del mapa')
+            option.setName('name')
+                .setDescription('Map name')
                 .setRequired(true))
         .addStringOption(option =>
-            option.setName('descripcion')
-                .setDescription('Descripción breve del mapa')
+            option.setName('description')
+                .setDescription('Brief map description')
                 .setRequired(true)),
     
     async execute(interaction) {
-        const code = interaction.options.getString('codigo');
-        const name = interaction.options.getString('nombre');
-        const description = interaction.options.getString('descripcion');
+        const code = interaction.options.getString('code');
+        const name = interaction.options.getString('name');
+        const description = interaction.options.getString('description');
 
-        // Validar formato del código
+        // Validate code format
         const codePattern = /^\d{4}-\d{4}-\d{4}$/;
         if (!codePattern.test(code)) {
             return await interaction.reply({
-                content: '❌ Formato de código inválido. Usa el formato: 0000-0000-0000',
+                content: '❌ Invalid code format. Use format: 0000-0000-0000',
                 flags: MessageFlags.Ephemeral
             });
         }
@@ -42,23 +42,23 @@ module.exports = {
 
             const embed = new EmbedBuilder()
                 .setColor('#00ff00')
-                .setTitle('✅ Mapa Enviado Exitosamente')
-                .setDescription('*Tu mapa ha sido añadido a la colección!* 🎉')
+                .setTitle('✅ Map Submitted Successfully')
+                .setDescription('*Your map has been added to the collection!* 🎉')
                 .addFields(
-                    { name: '🗺️ Nombre', value: name, inline: false },
-                    { name: '🔢 Código', value: `\`${code}\``, inline: false },
-                    { name: '📝 Descripción', value: description, inline: false },
-                    { name: '👤 Enviado por', value: interaction.user.tag, inline: true },
-                    { name: '🎮 ID del Mapa', value: newMap.id, inline: true }
+                    { name: '🗺️ Name', value: name, inline: false },
+                    { name: '🔢 Code', value: `\`${code}\``, inline: false },
+                    { name: '📝 Description', value: description, inline: false },
+                    { name: '👤 Submitted by', value: interaction.user.tag, inline: true },
+                    { name: '🎮 Map ID', value: newMap.id, inline: true }
                 )
-                .setFooter({ text: 'BrainrotBot 🧠 | Usa /maps para ver todos' })
+                .setFooter({ text: 'BrainrotBot 🧠 | Use /maps to see all' })
                 .setTimestamp();
 
             await interaction.reply({ embeds: [embed] });
         } catch (error) {
             console.error(error);
             await interaction.reply({
-                content: '❌ Hubo un error al guardar el mapa. Intenta de nuevo.',
+                content: '❌ There was an error saving the map. Try again.',
                 flags: MessageFlags.Ephemeral
             });
         }

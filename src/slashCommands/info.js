@@ -3,25 +3,25 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('info')
-        .setDescription('ℹ️ Información sobre el servidor y el bot'),
+        .setDescription('ℹ️ Information about the server and bot'),
     
     async execute(interaction) {
         const guild = interaction.guild;
         
         const embed = new EmbedBuilder()
             .setColor('#3498db')
-            .setTitle('ℹ️ Información del Servidor')
+            .setTitle('ℹ️ Server Information')
             .setThumbnail(guild.iconURL({ dynamic: true }))
             .addFields(
-                { name: '🎮 Servidor', value: guild.name, inline: true },
-                { name: '👥 Miembros', value: `${guild.memberCount}`, inline: true },
-                { name: '📅 Creado', value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:R>`, inline: true },
+                { name: '🎮 Server', value: guild.name, inline: true },
+                { name: '👥 Members', value: `${guild.memberCount}`, inline: true },
+                { name: '📅 Created', value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:R>`, inline: true },
                 { name: '🧠 Bot', value: 'BrainrotBot v1.0', inline: true },
-                { name: '🗺️ Temática', value: 'Fortnite Creative Brainrot', inline: true },
-                { name: '💻 Desarrollado con', value: 'Discord.js', inline: true }
+                { name: '🗺️ Theme', value: 'Fortnite Creative Brainrot', inline: true },
+                { name: '💻 Developed with', value: 'Discord.js', inline: true }
             )
-            .setDescription('*Servidor dedicado a mapas de Fortnite Creative con temática Brainrot* 💀')
-            .setFooter({ text: `ID del Servidor: ${guild.id}` })
+            .setDescription('*Server dedicated to Fortnite Creative maps with Brainrot theme* 💀')
+            .setFooter({ text: `Server ID: ${guild.id}` })
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed] });

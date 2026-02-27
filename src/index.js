@@ -3,12 +3,12 @@ const { Client, Collection, GatewayIntentBits, MessageFlags } = require('discord
 const fs = require('fs');
 const path = require('path');
 
-// Cargar config.json si existe, sino usar objeto vacío
+// Load config.json if exists, otherwise use empty object
 let config = {};
 try {
     config = require('../config.json');
 } catch (error) {
-    console.log('ℹ️ config.json no encontrado, usando variables de entorno');
+    console.log('ℹ️ config.json not found, using environment variables');
 }
 
 const client = new Client({ 
@@ -33,7 +33,7 @@ const client = new Client({
     ] 
 });
 
-// Cargar slash commands
+// Load slash commands
 client.slashCommands = new Collection();
 const slashCommandsPath = path.join(__dirname, 'slashCommands');
 const slashCommandFiles = fs.readdirSync(slashCommandsPath).filter(file => file.endsWith('.js'));
@@ -43,40 +43,40 @@ for (const file of slashCommandFiles) {
     const command = require(filePath);
     if ('data' in command && 'execute' in command) {
         client.slashCommands.set(command.data.name, command);
-        console.log(`[Slash Command] ${command.data.name} cargado.`);
+        console.log(`[Slash Command] ${command.data.name} loaded.`);
     } else {
-        console.log(`[WARNING] El comando en ${filePath} no tiene "data" o "execute".`);
+        console.log(`[WARNING] Command at ${filePath} doesn't have "data" or "execute".`);
     }
 }
 
 client.on('clientReady', () => {
-    console.log(`✅ Bot conectado como ${client.user.tag}`);
-    console.log(`🎮 Servidor: ${process.env.SERVER || config.server || 'BrainrotServer'}`);
-    console.log(`🧠 Modo: BRAINROT ACTIVADO 💀`);
+    console.log(`✅ Bot connected as ${client.user.tag}`);
+    console.log(`🎮 Server: ${process.env.SERVER || config.server || 'BrainrotServer'}`);
+    console.log(`🧠 Mode: BRAINROT ACTIVATED 💀`);
     
-    // Establecer estado del bot
+    // Set bot status
     client.user.setPresence({
-        activities: [{ name: '🧠 Mapas de Brainrot | /help' }],
+        activities: [{ name: '🧠 Brainrot Maps | /help' }],
         status: 'online',
     });
 });
 
-// Manejar interacciones de slash commands
+// Handle slash command interactions
 client.on('interactionCreate', async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
     const command = client.slashCommands.get(interaction.commandName);
 
     if (!command) {
-        console.error(`No se encontró el comando ${interaction.commandName}`);
+        console.error(`Command not found ${interaction.commandName}`);
         return;
     }
 
     try {
         await command.execute(interaction);
     } catch (error) {
-        console.error(`Error ejecutando ${interaction.commandName}:`, error);
-        const errorMessage = { content: '❌ Hubo un error al ejecutar este comando.', flags: MessageFlags.Ephemeral };
+        console.error(`Error executing ${interaction.commandName}:`, error);
+        const errorMessage = { content: '❌ There was an error executing this command.', flags: MessageFlags.Ephemeral };
         
         if (interaction.replied || interaction.deferred) {
             await interaction.followUp(errorMessage);
@@ -86,7 +86,7 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
-// Servidor HTTP simple para health checks (UptimeRobot)
+// Simple HTTP server for health checks (UptimeRobot)
 const http = require('http');
 const PORT = process.env.PORT || 3000;
 
@@ -104,6 +104,6 @@ server.listen(PORT, () => {
     console.log(`🌐 Health check server listening on port ${PORT}`);
 });
 
-// Usar variables de entorno si existen, sino usar config.json
+// Use environment variables if they exist, otherwise use config.json
 const token = process.env.TOKEN || config.token;
 client.login(token);

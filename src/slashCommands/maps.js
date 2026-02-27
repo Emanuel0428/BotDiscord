@@ -4,43 +4,43 @@ const { readMaps } = require('../utils/mapsManager');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('maps')
-        .setDescription('📋 Ver lista de todos los mapas disponibles'),
+        .setDescription('📋 View list of all available maps'),
     
     async execute(interaction) {
         const maps = readMaps();
 
         if (maps.length === 0) {
             return await interaction.reply({
-                content: '❌ No hay mapas disponibles todavía. Usa `/submit-map` para añadir uno!',
+                content: '❌ No maps available yet. Use `/submit-map` to add one!',
                 flags: MessageFlags.Ephemeral
             });
         }
 
-        // Ordenar por votos
+        // Sort by votes
         const sortedMaps = maps.sort((a, b) => b.votes - a.votes);
 
-        // Tomar los primeros 10 mapas
+        // Take first 10 maps
         const topMaps = sortedMaps.slice(0, 10);
 
         const embed = new EmbedBuilder()
             .setColor('#3498db')
-            .setTitle('📋 Lista de Mapas Disponibles')
-            .setDescription(`*Total de mapas: ${maps.length}* 🗺️\n\n**Top 10 Mapas:**`)
-            .setFooter({ text: 'BrainrotBot 🧠 | Usa /random-map para jugar' })
+            .setTitle('📋 Available Maps List')
+            .setDescription(`*Total maps: ${maps.length}* 🗺️\n\n**Top 10 Maps:**`)
+            .setFooter({ text: 'BrainrotBot 🧠 | Use /random-map to play' })
             .setTimestamp();
 
         topMaps.forEach((map, index) => {
             embed.addFields({
                 name: `${index + 1}. ${map.name} ⭐ ${map.votes}`,
-                value: `📝 ${map.description}\n🔢 Código: \`${map.code}\`\n👤 ${map.submittedBy}`,
+                value: `📝 ${map.description}\n🔢 Code: \`${map.code}\`\n👤 ${map.submittedBy}`,
                 inline: false
             });
         });
 
         if (maps.length > 10) {
             embed.addFields({
-                name: '📊 Más mapas',
-                value: `Y ${maps.length - 10} mapas más! Usa /random-map para descubrirlos.`,
+                name: '📊 More maps',
+                value: `And ${maps.length - 10} more maps! Use /random-map to discover them.`,
                 inline: false
             });
         }

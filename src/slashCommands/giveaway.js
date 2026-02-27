@@ -3,49 +3,49 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('giveaway')
-        .setDescription('🎁 Crea un sorteo en el servidor')
+        .setDescription('🎁 Create a giveaway on the server')
         .addStringOption(option =>
-            option.setName('premio')
-                .setDescription('¿Qué se va a sortear?')
+            option.setName('prize')
+                .setDescription('What will be given away?')
                 .setRequired(true))
         .addIntegerOption(option =>
-            option.setName('duracion')
-                .setDescription('Duración en minutos')
+            option.setName('duration')
+                .setDescription('Duration in minutes')
                 .setRequired(true)
                 .setMinValue(1)
                 .setMaxValue(10080))
         .addIntegerOption(option =>
-            option.setName('ganadores')
-                .setDescription('Número de ganadores')
+            option.setName('winners')
+                .setDescription('Number of winners')
                 .setRequired(false)
                 .setMinValue(1)
                 .setMaxValue(20)),
     
     async execute(interaction) {
-        const prize = interaction.options.getString('premio');
-        const duration = interaction.options.getInteger('duracion');
-        const winners = interaction.options.getInteger('ganadores') || 1;
+        const prize = interaction.options.getString('prize');
+        const duration = interaction.options.getInteger('duration');
+        const winners = interaction.options.getInteger('winners') || 1;
 
         const endTime = Date.now() + (duration * 60 * 1000);
         const endTimestamp = Math.floor(endTime / 1000);
 
         const embed = new EmbedBuilder()
             .setColor('#f1c40f')
-            .setTitle('🎁 SORTEO ACTIVO')
-            .setDescription(`**Premio: ${prize}**\n\n¡Reacciona con 🎉 para participar!`)
+            .setTitle('🎁 ACTIVE GIVEAWAY')
+            .setDescription(`**Prize: ${prize}**\n\nReact with 🎉 to participate!`)
             .addFields(
-                { name: '👥 Ganadores', value: winners.toString(), inline: true },
-                { name: '⏰ Termina', value: `<t:${endTimestamp}:R>`, inline: true },
-                { name: '🎯 Finaliza el', value: `<t:${endTimestamp}:F>`, inline: false },
-                { name: '📢 Organizado por', value: interaction.user.tag, inline: true }
+                { name: '👥 Winners', value: winners.toString(), inline: true },
+                { name: '⏰ Ends', value: `<t:${endTimestamp}:R>`, inline: true },
+                { name: '🎯 Ends on', value: `<t:${endTimestamp}:F>`, inline: false },
+                { name: '📢 Organized by', value: interaction.user.tag, inline: true }
             )
-            .setFooter({ text: 'BrainrotBot 🧠 | Buena suerte!' })
+            .setFooter({ text: 'BrainrotBot 🧠 | Good luck!' })
             .setTimestamp();
 
         const message = await interaction.reply({ embeds: [embed], fetchReply: true });
         await message.react('🎉');
 
-        // Programar el fin del sorteo
+        // Schedule end of giveaway
         setTimeout(async () => {
             try {
                 const fetchedMessage = await message.fetch();
@@ -54,8 +54,8 @@ module.exports = {
                 if (!reaction) {
                     const noReactionsEmbed = new EmbedBuilder()
                         .setColor('#e74c3c')
-                        .setTitle('🎁 Sorteo Finalizado')
-                        .setDescription(`**Premio: ${prize}**\n\n❌ No hubo participantes.`)
+                        .setTitle('🎁 Giveaway Ended')
+                        .setDescription(`**Prize: ${prize}**\n\n❌ There were no participants.`)
                         .setFooter({ text: 'BrainrotBot 🧠' })
                         .setTimestamp();
                     
@@ -68,8 +68,8 @@ module.exports = {
                 if (participants.size === 0) {
                     const noParticipantsEmbed = new EmbedBuilder()
                         .setColor('#e74c3c')
-                        .setTitle('🎁 Sorteo Finalizado')
-                        .setDescription(`**Premio: ${prize}**\n\n❌ No hubo participantes válidos.`)
+                        .setTitle('🎁 Giveaway Ended')
+                        .setDescription(`**Prize: ${prize}**\n\n❌ There were no valid participants.`)
                         .setFooter({ text: 'BrainrotBot 🧠' })
                         .setTimestamp();
                     
@@ -83,23 +83,23 @@ module.exports = {
 
                 const winnerEmbed = new EmbedBuilder()
                     .setColor('#00ff00')
-                    .setTitle('🎁 SORTEO FINALIZADO')
-                    .setDescription(`**Premio: ${prize}**`)
+                    .setTitle('🎁 GIVEAWAY ENDED')
+                    .setDescription(`**Prize: ${prize}**`)
                     .addFields(
-                        { name: '🎉 Ganador(es)', value: winnersList, inline: false },
-                        { name: '👥 Participantes', value: participants.size.toString(), inline: true }
+                        { name: '🎉 Winner(s)', value: winnersList, inline: false },
+                        { name: '👥 Participants', value: participants.size.toString(), inline: true }
                     )
-                    .setFooter({ text: 'BrainrotBot 🧠 | Felicidades!' })
+                    .setFooter({ text: 'BrainrotBot 🧠 | Congratulations!' })
                     .setTimestamp();
 
                 await interaction.editReply({ embeds: [winnerEmbed] });
                 await interaction.followUp({ 
-                    content: `🎉 **Felicidades ${winnersList}!** Has ganado: **${prize}**`,
+                    content: `🎉 **Congratulations ${winnersList}!** You won: **${prize}**`,
                     allowedMentions: { parse: ['users'] }
                 });
 
             } catch (error) {
-                console.error('Error al finalizar el sorteo:', error);
+                console.error('Error ending giveaway:', error);
             }
         }, duration * 60 * 1000);
     },

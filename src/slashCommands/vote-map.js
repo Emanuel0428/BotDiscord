@@ -4,10 +4,10 @@ const { voteMap, readMaps } = require('../utils/mapsManager');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('vote-map')
-        .setDescription('⭐ Vota por tu mapa favorito')
+        .setDescription('⭐ Vote for your favorite map')
         .addStringOption(option =>
             option.setName('id')
-                .setDescription('ID del mapa (usa /maps para ver los IDs)')
+                .setDescription('Map ID (use /maps to see IDs)')
                 .setRequired(true)),
     
     async execute(interaction) {
@@ -18,7 +18,7 @@ module.exports = {
 
         if (!map) {
             return await interaction.reply({
-                content: '❌ No se encontró el mapa con ese ID. Usa `/maps` para ver los mapas disponibles.',
+                content: '❌ Map with that ID not found. Use `/maps` to see available maps.',
                 flags: MessageFlags.Ephemeral
             });
         }
@@ -27,14 +27,14 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setColor('#f39c12')
-            .setTitle('⭐ Voto Registrado')
-            .setDescription(`*Has votado por "${updatedMap.name}"!* 🎉`)
+            .setTitle('⭐ Vote Registered')
+            .setDescription(`*You voted for "${updatedMap.name}"!* 🎉`)
             .addFields(
-                { name: '🗺️ Mapa', value: updatedMap.name, inline: true },
-                { name: '⭐ Total de Votos', value: updatedMap.votes.toString(), inline: true },
-                { name: '🔢 Código', value: `\`${updatedMap.code}\``, inline: false }
+                { name: '🗺️ Map', value: updatedMap.name, inline: true },
+                { name: '⭐ Total Votes', value: updatedMap.votes.toString(), inline: true },
+                { name: '🔢 Code', value: `\`${updatedMap.code}\``, inline: false }
             )
-            .setFooter({ text: 'BrainrotBot 🧠 | Gracias por votar!' })
+            .setFooter({ text: 'BrainrotBot 🧠 | Thanks for voting!' })
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed] });

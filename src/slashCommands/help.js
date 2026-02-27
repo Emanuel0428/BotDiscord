@@ -3,45 +3,45 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('help')
-        .setDescription('📚 Muestra todos los comandos disponibles del bot'),
+        .setDescription('📚 Show all available bot commands'),
     
     async execute(interaction) {
         const embed = new EmbedBuilder()
             .setColor('#ff00ff')
-            .setTitle('🧠 BrainrotBot - Comandos Disponibles')
-            .setDescription('*El bot más brainrot de Fortnite Creative* 💀')
+            .setTitle('🧠 BrainrotBot - Available Commands')
+            .setDescription('*The most brainrot bot for Fortnite Creative* 💀')
             .addFields(
                 { 
-                    name: '🎪 Comandos de Brainrot',
-                    value: '`/sound` - Envía sonidos épicos de Brainrot\n' +
-                           '`/meme` - Memes random de Brainrot\n' + 
-                           '`/quote` - Frases legendarias\n' +
-                           '`/rizz` - Líneas de rizz supremo\n' +
-                           '`/sigma` - Frases sigma motivacionales\n' +
+                    name: '🎪 Brainrot Commands',
+                    value: '`/sound` - Send epic Brainrot sounds\n' +
+                           '`/meme` - Random Brainrot memes\n' + 
+                           '`/quote` - Legendary quotes\n' +
+                           '`/rizz` - Supreme rizz lines\n' +
+                           '`/sigma` - Motivational sigma phrases\n' +
                            '`/ohio` - Only in Ohio... 💀\n' +
                            '`/skibidi` - Skibidi references'
                 },
                 {
-                    name: '🗺️ Comandos de Mapas',
-                    value: '`/submit-map` - Envía tu código de mapa\n' +
-                           '`/random-map` - Mapa aleatorio para jugar\n' +
-                           '`/maps` - Lista de mapas disponibles\n' +
-                           '`/vote-map` - Vota por tu mapa favorito'
+                    name: '🗺️ Map Commands',
+                    value: '`/submit-map` - Submit your map code\n' +
+                           '`/random-map` - Random map to play\n' +
+                           '`/maps` - List of available maps\n' +
+                           '`/vote-map` - Vote for your favorite map'
                 },
                 {
-                    name: '🎉 Comandos de Comunidad',
-                    value: '`/giveaway` - Crea un sorteo\n' +
-                           '`/poll` - Crea una encuesta\n' +
-                           '`/leaderboard` - Top jugadores'
+                    name: '🎉 Community Commands',
+                    value: '`/giveaway` - Create a giveaway\n' +
+                           '`/poll` - Create a poll\n' +
+                           '`/leaderboard` - Top players'
                 },
                 {
-                    name: '⚙️ Comandos Generales',
-                    value: '`/help` - Este mensaje\n' +
-                           '`/ping` - Latencia del bot\n' +
-                           '`/info` - Info del servidor'
+                    name: '⚙️ General Commands',
+                    value: '`/help` - This message\n' +
+                           '`/ping` - Bot latency\n' +
+                           '`/info` - Server info'
                 }
             )
-            .setFooter({ text: 'Usa los comandos para más diversión! 🎮' })
+            .setFooter({ text: 'Use commands for more fun! 🎮' })
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed] });

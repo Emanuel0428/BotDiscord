@@ -2,12 +2,12 @@ require('dotenv').config();
 const fs = require("fs");
 const { REST, Routes } = require("discord.js");
 
-// Cargar config.json si existe, sino usar objeto vacío
+// Load config.json if exists, otherwise use empty object
 let config = {};
 try {
     config = require("../../config.json");
 } catch (error) {
-    console.log('ℹ️ config.json no encontrado, usando variables de entorno');
+    console.log('ℹ️ config.json not found, using environment variables');
 }
 
 const commands = [];
@@ -33,7 +33,7 @@ async function createSlash() {
     await rest.put(Routes.applicationCommands(botId), {
       body: commands,
     });
-    console.log("[Slash Commands] Agregados.");
+    console.log("[Slash Commands] Added.");
   } catch (e) {
     console.error(e);
   }

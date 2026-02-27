@@ -4,31 +4,31 @@ const { getRandomMap } = require('../utils/mapsManager');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('random-map')
-        .setDescription('🎲 Obtén un mapa aleatorio para jugar'),
+        .setDescription('🎲 Get a random map to play'),
     
     async execute(interaction) {
         const randomMap = getRandomMap();
 
         if (!randomMap) {
             return await interaction.reply({
-                content: '❌ No hay mapas disponibles todavía. Usa `/submit-map` para añadir uno!',
+                content: '❌ No maps available yet. Use `/submit-map` to add one!',
                 flags: MessageFlags.Ephemeral
             });
         }
 
         const embed = new EmbedBuilder()
             .setColor('#e91e63')
-            .setTitle('🎲 Mapa Aleatorio Seleccionado')
-            .setDescription('*Hora de jugar algo random!* 🎮')
+            .setTitle('🎲 Random Map Selected')
+            .setDescription('*Time to play something random!* 🎮')
             .addFields(
-                { name: '🗺️ Nombre', value: randomMap.name, inline: false },
-                { name: '🔢 Código', value: `\`${randomMap.code}\``, inline: false },
-                { name: '📝 Descripción', value: randomMap.description, inline: false },
-                { name: '👤 Creado por', value: randomMap.submittedBy, inline: true },
-                { name: '⭐ Votos', value: randomMap.votes.toString(), inline: true },
-                { name: '🎮 Jugadas', value: randomMap.plays.toString(), inline: true }
+                { name: '🗺️ Name', value: randomMap.name, inline: false },
+                { name: '🔢 Code', value: `\`${randomMap.code}\``, inline: false },
+                { name: '📝 Description', value: randomMap.description, inline: false },
+                { name: '👤 Created by', value: randomMap.submittedBy, inline: true },
+                { name: '⭐ Votes', value: randomMap.votes.toString(), inline: true },
+                { name: '🎮 Plays', value: randomMap.plays.toString(), inline: true }
             )
-            .setFooter({ text: 'BrainrotBot 🧠 | Usa /vote-map para votar' })
+            .setFooter({ text: 'BrainrotBot 🧠 | Use /vote-map to vote' })
             .setTimestamp();
 
         await interaction.reply({ embeds: [embed] });
