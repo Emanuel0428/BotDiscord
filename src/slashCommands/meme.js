@@ -6,59 +6,46 @@ module.exports = {
         .setDescription('😂 Send a random Brainrot meme'),
     
     async execute(interaction) {
-        const memes = [
-            {
-                title: 'Skibidi Toilet Apocalypse',
-                image: 'https://i.imgflip.com/7xt9xy.jpg',
-                caption: 'When the Skibidi Toilet takes over 💀'
-            },
-            {
-                title: 'Sigma Male Grindset',
-                image: 'https://i.imgflip.com/7xt9xy.jpg',
-                caption: 'No time for relationships, only grinding 💪'
-            },
-            {
-                title: 'Only in Ohio',
-                image: 'https://i.imgflip.com/7xt9xy.jpg',
-                caption: 'Ohio final boss be like: 🌽'
-            },
-            {
-                title: 'Fanum Tax',
-                image: 'https://i.imgflip.com/7xt9xy.jpg',
-                caption: 'POV: Fanum taxes your food 🍕'
-            },
-            {
-                title: 'Rizz God',
-                image: 'https://i.imgflip.com/7xt9xy.jpg',
-                caption: 'When you have infinite rizz 😎'
-            },
-            {
-                title: 'Grimace Shake',
-                image: 'https://i.imgflip.com/7xt9xy.jpg',
-                caption: 'Never try the Grimace Shake 🟣💀'
-            },
-            {
-                title: 'Goofy Ahh',
-                image: 'https://i.imgflip.com/7xt9xy.jpg',
-                caption: 'This goofy ahh moment 🤪'
-            },
-            {
-                title: 'Fortnite Brainrot',
-                image: 'https://i.imgflip.com/7xt9xy.jpg',
-                caption: 'Playing Fortnite Creative at 3am 🎮'
+        await interaction.deferReply();
+
+        try {
+            // Subreddits de brainrot y shitpost
+            const subreddits = ['shitposting', 'GenZMemes', 'brainrot', 'comedyheaven', 'okbuddyretard', 'whenthe'];
+            const randomSubreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
+
+            // Fetch meme from Reddit API
+            const response = await fetch(`https://meme-api.com/gimme/${randomSubreddit}`);
+            const memeData = await response.json();
+
+            // Si el meme es NSFW, buscar otro
+            if (memeData.nsfw) {
+                const retry = await fetch(`https://meme-api.com/gimme/${randomSubreddit}`);
+                const retryData = await retry.json();
+                if (!retryData.nsfw) {
+                    memeData.title = retryData.title;
+                    memeData.url = retryData.url;
+                    memeData.postLink = retryData.postLink;
+                }
             }
-        ];
 
-        const randomMeme = memes[Math.floor(Math.random() * memes.length)];
+            const brainrotEmojis = ['💀', '🧠', '🚽', '💪', '😤', '🗿', '🔥', '😎', '👀', '💯'];
+            const randomEmoji = brainrotEmojis[Math.floor(Math.random() * brainrotEmojis.length)];
 
-        const embed = new EmbedBuilder()
-            .setColor('#9b59b6')
-            .setTitle(`😂 ${randomMeme.title}`)
-            .setDescription(randomMeme.caption)
-            .setImage(randomMeme.image)
-            .setFooter({ text: 'BrainrotBot 🧠 | /meme for more' })
-            .setTimestamp();
+            const embed = new EmbedBuilder()
+                .setColor('#9b59b6')
+                .setTitle(`${randomEmoji} ${memeData.title}`)
+                .setImage(memeData.url)
+                .setFooter({ text: `BrainrotBot 🧠 | r/${randomSubreddit}` })
+                .setTimestamp();
 
-        await interaction.reply({ embeds: [embed] });
+            await interaction.editReply({ embeds: [embed] });
+
+        } catch (error) {
+            console.error('Error fetching meme:', error);
+            await interaction.editReply({
+                content: '💀 Bruh the meme servers are down, try again fr fr',
+                ephemeral: true
+            });
+        }
     },
 };
